@@ -548,6 +548,19 @@ async function executeTool(name: string, args: any) {
     return JSON.stringify(response.data, null, 2);
   }
 
+  // ── Agent Management ──
+  if (name === "list_wazuh_agents") {
+    const params: any = {};
+    if (args?.status) params.status = args.status;
+    const response = await api.get("/wazuh/agents", { params });
+    return JSON.stringify(response.data, null, 2);
+  }
+
+  if (name === "list_velociraptor_clients") {
+    const response = await api.get("/velociraptor/clients");
+    return JSON.stringify(response.data, null, 2);
+  }
+
   // ── Notifications ──
   if (name === "list_notification_channels") {
     const response = await api.get("/notifications/channels");
